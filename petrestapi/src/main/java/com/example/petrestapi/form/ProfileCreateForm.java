@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class ProfileCreateForm {
     private String name;
     private int age;
-    private LocalDate birth;
+    private LocalDate dateOfBirth;
 
     public String getName() {
         return name;
@@ -23,12 +23,12 @@ public class ProfileCreateForm {
         this.age = age;
     }
 
-    public LocalDate getBirth() {
-        return birth;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirth(LocalDate birth) {
-        this.birth = birth;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
 }

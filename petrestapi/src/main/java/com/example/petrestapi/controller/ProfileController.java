@@ -13,31 +13,27 @@ import java.util.Map;
 @RestController
 public class ProfileController {
 
-    @GetMapping("/profile")
+    @GetMapping("/profiles")
     public List<String> getProfile() {
         return List.of("ALBA", "VANILLA");
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/profiles")
     public ResponseEntity<String> createProfile(@RequestBody ProfileCreateForm profileCreateForm) {
-        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/profile/id")
+        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/profiles/id")
                 .build()
                 .toUri();
 
-        System.out.println(profileCreateForm.getName());
-        System.out.println(profileCreateForm.getAge());
-        System.out.println(profileCreateForm.getBirth());
-
-        return ResponseEntity.created(url).body("profile successfully created");
+        return ResponseEntity.created(url).body("profiles successfully created");
     }
 
-    @PatchMapping("/profile/{id}")
+    @PatchMapping("/profiles/{id}")
     public ResponseEntity<Map<String, String>> updateProfile(@PathVariable("id") int id, @RequestBody ProfileUpdateForm profileUpdateForm) {
-        return ResponseEntity.ok(Map.of("message", "profile successfully updated"));
+        return ResponseEntity.ok(Map.of("message", "profiles successfully updated"));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/profiles/{id}")
     public ResponseEntity<String> deleteProfile(@PathVariable("id") int id) {
-        return ResponseEntity.ok("profile successfully deleted");
+        return ResponseEntity.ok("profiles successfully deleted");
     }
 }
