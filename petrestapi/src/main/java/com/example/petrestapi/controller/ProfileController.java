@@ -19,12 +19,13 @@ public class ProfileController {
     }
 
     @PostMapping("/profiles")
-    public ResponseEntity<String> createProfile(@RequestBody ProfileCreateForm profileCreateForm) {
-        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/profiles/id")
+    public ResponseEntity<Map<String, String>> createProfile(@RequestBody ProfileCreateForm form) {
+        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
+                .path("/profiles/id")
                 .build()
                 .toUri();
 
-        return ResponseEntity.created(url).body("profiles successfully created");
+        return ResponseEntity.created(url).body(Map.of("message", "profiles successfully created"));
     }
 
     @PatchMapping("/profiles/{id}")
@@ -33,7 +34,7 @@ public class ProfileController {
     }
 
     @DeleteMapping("/profiles/{id}")
-    public ResponseEntity<String> deleteProfile(@PathVariable("id") int id) {
-        return ResponseEntity.ok("profiles successfully deleted");
+    public ResponseEntity<Map<String, String>> deleteProfile(@PathVariable("id") int id) {
+        return ResponseEntity.ok(Map.of("message", "profiles successfully deleted"));
     }
 }
