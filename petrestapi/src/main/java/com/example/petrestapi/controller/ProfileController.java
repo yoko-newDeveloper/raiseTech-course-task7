@@ -3,6 +3,8 @@ package com.example.petrestapi.controller;
 import com.example.petrestapi.form.ProfileCreateForm;
 import com.example.petrestapi.form.ProfileUpdateForm;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,7 +21,14 @@ public class ProfileController {
     }
 
     @PostMapping("/profiles")
-    public ResponseEntity<Map<String, String>> createProfile(@RequestBody ProfileCreateForm form) {
+    public ResponseEntity<Map<String, String>> createProfile(@RequestBody @Validated ProfileCreateForm form, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) { // バリデーションエラーをチェック
+            return ResponseEntity
+                    .badRequest() // Httpステータスコード400を返す
+                    .body(Map.of("error", bindingResult.getFieldError().getDefaultMessage()));
+        }
+
+        // バリデーションが成功
         URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
                 .path("/profiles/id")
                 .build()
