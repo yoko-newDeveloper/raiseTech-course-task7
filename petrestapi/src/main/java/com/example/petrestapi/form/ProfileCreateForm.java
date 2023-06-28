@@ -16,6 +16,10 @@ public class ProfileCreateForm {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getAge() {
         return age;
     }
@@ -30,14 +34,5 @@ public class ProfileCreateForm {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-    // バリデーション例外処理
-    public void validateName() {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("名前は必須です");
-        }
-        if (name.length() > 20) {
-            throw new IllegalArgumentException("名前は20文字以下で入力してください");
-        }
     }
 }
