@@ -3,6 +3,7 @@ package com.example.petrestapi.controller;
 import com.example.petrestapi.form.ProfileCreateForm;
 import com.example.petrestapi.form.ProfileUpdateForm;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,12 +20,15 @@ public class ProfileController {
     }
 
     @PostMapping("/profiles")
-    public ResponseEntity<String> createProfile(@RequestBody ProfileCreateForm profileCreateForm) {
-        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080").path("/profiles/id")
+    public ResponseEntity<Map<String, String>> createProfile(@RequestBody @Validated ProfileCreateForm form) {
+
+        // バリデーションが成功
+        URI url = UriComponentsBuilder.fromUriString("http://localhost:8080")
+                .path("/profiles/id")
                 .build()
                 .toUri();
 
-        return ResponseEntity.created(url).body("profiles successfully created");
+        return ResponseEntity.created(url).body(Map.of("message", "profiles successfully created"));
     }
 
     @PatchMapping("/profiles/{id}")
@@ -33,7 +37,7 @@ public class ProfileController {
     }
 
     @DeleteMapping("/profiles/{id}")
-    public ResponseEntity<String> deleteProfile(@PathVariable("id") int id) {
-        return ResponseEntity.ok("profiles successfully deleted");
+    public ResponseEntity<Map<String, String>> deleteProfile(@PathVariable("id") int id) {
+        return ResponseEntity.ok(Map.of("message", "profiles successfully deleted"));
     }
 }
